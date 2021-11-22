@@ -32,6 +32,9 @@ class Track {
     // Destructor
     ~Track(void);
 
+    void    Evaluate_Point(float arr[3]);
+    void    Evaluate_Derivative(float arr[3]);
+
     bool    Initialize(void);	// Gets everything set up for drawing.
     void    Update(float);	// Updates the location of the train
     void    Draw(void);		// Draws everything.

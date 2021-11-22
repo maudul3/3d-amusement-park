@@ -8,6 +8,10 @@
 #include "Track.h"
 #include <stdio.h>
 #include <FL/math.h>
+#include <Fl/Fl.h>
+#include <Fl/Fl_Gl_Window.h>
+#include <GL/glu.h>
+
 
 
 // The control points for the track spline.
@@ -19,6 +23,10 @@ const float Track::TRACK_CONTROLS[TRACK_NUM_CONTROLS][3] =
 // The carriage energy and mass
 const float Track::TRAIN_ENERGY = 250.0f;
 
+// Get point
+void Track::Evaluate_Point(float arr[3]) {
+    track->Evaluate_Point(posn_on_track, arr);
+}
 
 // Normalize a 3d vector.
 static void
@@ -34,6 +42,12 @@ Normalize_3(float v[3])
     v[2] /= (float)l;
 }
 
+
+void Track::Evaluate_Derivative(float arr[3]) {
+    // ...and what it's orientation is
+    track->Evaluate_Derivative(posn_on_track, arr);
+    Normalize_3(arr);
+}
 
 // Destructor
 Track::~Track(void)
@@ -212,6 +226,7 @@ Track::Update(float dt)
     // for the next time.
     // The total energy = z * gravity + 1/2 speed * speed, assuming unit mass
     track->Evaluate_Point(posn_on_track, point);
+
     if ( TRAIN_ENERGY - 9.81 * point[2] < 0.0 )
 	speed = 0.0;
     else

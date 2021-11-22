@@ -100,19 +100,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CubicBspline.cpp" />
+    <ClCompile Include="Funhouse.cpp" />
     <ClCompile Include="GenericException.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="libtarga.c" />
     <ClCompile Include="Track.cpp" />
+    <ClCompile Include="Trees.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="WorldWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CubicBspline.h" />
+    <ClInclude Include="Funhouse.h" />
     <ClInclude Include="GenericException.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="libtarga.h" />
     <ClInclude Include="Track.h" />
+    <ClInclude Include="trees.h" />
     <ClInclude Include="WorldWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

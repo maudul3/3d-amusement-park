@@ -14,6 +14,19 @@
 #include <stdio.h>
 
 const double WorldWindow::FOV_X = 45.0;
+int ride_fl = 0;
+float prev_car_pos[3], prev_tangent[3], prev_n[3], prev_b[3];
+
+// Function to find
+// cross product of two vector array.
+void crossProduct(float vect_A[3], float vect_B[3], float cross_P[3])
+
+{
+
+	cross_P[0] = vect_A[1] * vect_B[2] - vect_A[2] * vect_B[1];
+	cross_P[1] = vect_A[2] * vect_B[0] - vect_A[0] * vect_B[2];
+	cross_P[2] = vect_A[0] * vect_B[1] - vect_A[1] * vect_B[0];
+}
 
 WorldWindow::WorldWindow(int x, int y, int width, int height, char *label)
 	: Fl_Gl_Window(x, y, width, height, label)
@@ -53,7 +66,7 @@ WorldWindow::draw(void)
 
 	// Turn on back face culling. Faces with normals away from the viewer
 	// will not be drawn.
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 
 	// Enable lighting with one light.
 	glEnable(GL_LIGHT0);
@@ -86,6 +99,7 @@ WorldWindow::draw(void)
 	// Initialize all the objects.
 	ground.Initialize();
 	traintrack.Initialize();
+	funhouse.Initialize();
     }
 
     // Stuff out here relies on a coordinate system or must be done on every
@@ -102,17 +116,42 @@ WorldWindow::draw(void)
     eye[2] = 2.0 + dist * sin(phi * M_PI / 180.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(eye[0], eye[1], eye[2], x_at, y_at, 2.0, 0.0, 0.0, 1.0);
 
+	if (ride_fl) {
+		float car_pos[3], tangent[3], n[3], b[3];
+		traintrack.Evaluate_Point(car_pos);
+		traintrack.Evaluate_Derivative(tangent);
+		crossProduct(prev_b, tangent, n);
+		crossProduct(tangent, n, b);
+		gluLookAt(car_pos[0], car_pos[1], car_pos[2],
+			car_pos[0] + 3*tangent[0], car_pos[1] + 3*tangent[1], car_pos[2] + 3*tangent[2],
+			b[0], b[1], b[2]
+		);
+		for (int i = 0; i < 3; i++) {
+			prev_n[i] = n[i];
+			prev_b[i] = b[i];
+		}
+	}
+	else {
+		gluLookAt(eye[0], eye[1], eye[2], x_at, y_at, 2.0, 0.0, 0.0, 1.0);
+	}
     // Position the light source. This has to happen after the viewing
     // transformation is set up, so that the light stays fixed in world
     // space. This is a directional light - note the 0 in the w component.
     dir[0] = 1.0; dir[1] = 1.0; dir[2] = 1.0; dir[3] = 0.0;
     glLightfv(GL_LIGHT0, GL_POSITION, dir);
 
+	if (Fl::event_key() == 'r') {
+		ride_fl = 1;
+	}
+	else if (Fl::event_key() == 'n') {
+		ride_fl = 0;
+	}
+
     // Draw stuff. Everything.
     ground.Draw();
     traintrack.Draw();
+	funhouse.Draw();
 }
 
 
@@ -172,6 +211,18 @@ WorldWindow::Update(float dt)
 
     if ( button != -1 ) // Only do anything if the mouse button is down.
 	Drag(dt);
+
+	if (Fl::event_key() == 'r') {
+		ride_fl = 1;
+		float arbitrary[3] = { 1/sqrt(3), 1/sqrt(3), 1/sqrt(3) };
+		traintrack.Evaluate_Point(prev_car_pos);
+		traintrack.Evaluate_Derivative(prev_tangent);
+		crossProduct(prev_tangent, arbitrary, prev_n);
+		crossProduct(prev_tangent, prev_n, prev_b);
+	}
+	else if (Fl::event_key() == 'n') {
+		ride_fl = 0;
+	}
 
     // Animate the train.
     traintrack.Update(dt);
