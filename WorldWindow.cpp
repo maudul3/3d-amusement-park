@@ -66,7 +66,7 @@ WorldWindow::draw(void)
 
 	// Turn on back face culling. Faces with normals away from the viewer
 	// will not be drawn.
-	//glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 
 	// Enable lighting with one light.
 	glEnable(GL_LIGHT0);

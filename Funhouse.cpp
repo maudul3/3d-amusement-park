@@ -90,16 +90,16 @@ Funhouse::Initialize(void)
     glVertex3f(30.0, 20.0, 0.0);
     
     // Back of the funhouse
-    glTexCoord2f(10, 10);
-    glVertex3f(30, 30, 0.0);
     glTexCoord2f(-10, 10);
-    glVertex3f(30, 30, 10.0);
+    glVertex3f(10, 30, 0.0);
     glTexCoord2f(-10, -10);
     glVertex3f(10, 30, 10.0);
     glTexCoord2f(-10, 10);
-    glVertex3f(10, 30, 0.0);
-
-    // Front of the funhouse?
+    glVertex3f(30, 30, 10.0);
+    glTexCoord2f(10, 10);
+    glVertex3f(30, 30, 0.0);
+ 
+    // Side of the funhouse?
     glTexCoord2f(10, 10);
     glVertex3f(30, 30, 0.0);
     glTexCoord2f(-10, 10);
@@ -110,64 +110,54 @@ Funhouse::Initialize(void)
     glVertex3f(30, 20, 0.0);
 
     // Side of the funhouse?
-    glTexCoord2f(10, 10);
-    glVertex3f(10, 30, 0.0);
     glTexCoord2f(-10, 10);
-    glVertex3f(10, 30, 10.0);
+    glVertex3f(10, 20, 0.0);
     glTexCoord2f(-10, -10);
     glVertex3f(10, 20, 10.0);
     glTexCoord2f(-10, 10);
-    glVertex3f(10, 20, 0.0);
+    glVertex3f(10, 30, 10.0);
+    glTexCoord2f(10, 10);
+    glVertex3f(10, 30, 0.0);
 
     // Another side of the funhouse?
-    glTexCoord2f(10, 10);
-    glVertex3f(10, 20, 0.0);
     glTexCoord2f(-10, 10);
-    glVertex3f(10, 20, 10.0);
+    glVertex3f(30, 20, 0.0);
     glTexCoord2f(-10, -10);
     glVertex3f(30, 20, 10.0);
     glTexCoord2f(-10, 10);
-    glVertex3f(30, 20, 0.0);
-    
-    // Top of the funhouse
+    glVertex3f(10, 20, 10.0);
     glTexCoord2f(10, 10);
-    glVertex3f(30, 30, 10.0);
-    glTexCoord2f(-10, 10);
-    glVertex3f(10, 30, 10.0);
-    glTexCoord2f(-10, -10);
-    glVertex3f(10.0, 20.0, 10.0);
-    glTexCoord2f(10, -10);
-    glVertex3f(30.0, 20.0, 10.0);
-
+    glVertex3f(10, 20, 0.0);
+    
     glEnd();
 
     glBegin(GL_TRIANGLES);
 
+    glTexCoord2f(-10, -10);
+    glVertex3f(20.0, 25.0, 18.0);
     glTexCoord2f(10, 10);
     glVertex3f(30, 30, 10.0);
     glTexCoord2f(-10, 10);
     glVertex3f(10, 30, 10.0);
-    glTexCoord2f(-10, -10);
-    glVertex3f(20.0, 25.0, 18.0);
 
     glTexCoord2f(10, 10);
-    glVertex3f(30, 30, 10.0);
+    glVertex3f(10, 30, 10.0);
     glTexCoord2f(-10, 10);
     glVertex3f(10, 20, 10.0);
     glTexCoord2f(-10, -10);
     glVertex3f(20.0, 25.0, 18.0);
 
-    glTexCoord2f(10, 10);
-    glVertex3f(30, 30, 10.0);
     glTexCoord2f(-10, 10);
     glVertex3f(30, 20, 10.0);
+    glTexCoord2f(10, 10);
+    glVertex3f(30, 30, 10.0);
     glTexCoord2f(-10, -10);
     glVertex3f(20.0, 25.0, 18.0);
 
-    glTexCoord2f(10, 10);
-    glVertex3f(30, 20, 10.0);
     glTexCoord2f(-10, 10);
     glVertex3f(10, 20, 10.0);
+    glTexCoord2f(10, 10);
+    glVertex3f(30, 20, 10.0);
     glTexCoord2f(-10, -10);
     glVertex3f(20.0, 25.0, 18.0);
 
@@ -181,11 +171,11 @@ Funhouse::Initialize(void)
     glColor3f(0.0, 0.0, 0.0);
     glBegin(GL_POLYGON);
     // Another side of the funhouse?
-    glVertex3f(17.5, 19.999, 0.0);
-    glVertex3f(17.5, 19.999, 5.0);
-    glVertex3f(20, 19.999, 8.0);
-    glVertex3f(22.5, 19.999, 5.0);
     glVertex3f(22.5, 19.999, 0.0);
+    glVertex3f(22.5, 19.999, 5.0);
+    glVertex3f(20, 19.999, 8.0);
+    glVertex3f(17.5, 19.999, 5.0);
+    glVertex3f(17.5, 19.999, 0.0);
     glEnd();
 
     glEndList();
