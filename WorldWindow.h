@@ -15,6 +15,7 @@
 #include <Fl/Fl_Gl_Window.h>
 #include "Ground.h"
 #include "Track.h"
+#include "trees.h"
 #include "Funhouse.h"
 
 
@@ -39,6 +40,7 @@ class WorldWindow : public Fl_Gl_Window {
 	Ground	    ground;	    // The ground object.
 	Track  traintrack;	    // The train and track.
 	Funhouse funhouse;
+	Tree tree;
 
 	static const double FOV_X; // The horizontal field of view.
 

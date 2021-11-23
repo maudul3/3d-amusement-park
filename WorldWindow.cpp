@@ -100,6 +100,7 @@ WorldWindow::draw(void)
 	ground.Initialize();
 	traintrack.Initialize();
 	funhouse.Initialize();
+	tree.Initialize();
     }
 
     // Stuff out here relies on a coordinate system or must be done on every
@@ -125,7 +126,7 @@ WorldWindow::draw(void)
 		crossProduct(tangent, n, b);
 		gluLookAt(car_pos[0], car_pos[1], car_pos[2],
 			car_pos[0] + 3*tangent[0], car_pos[1] + 3*tangent[1], car_pos[2] + 3*tangent[2],
-			b[0], b[1], b[2]
+			0, 0, 1
 		);
 		for (int i = 0; i < 3; i++) {
 			prev_n[i] = n[i];
@@ -152,6 +153,7 @@ WorldWindow::draw(void)
     ground.Draw();
     traintrack.Draw();
 	funhouse.Draw();
+	tree.Draw();
 }
 
 
@@ -217,8 +219,6 @@ WorldWindow::Update(float dt)
 		float arbitrary[3] = { 1/sqrt(3), 1/sqrt(3), 1/sqrt(3) };
 		traintrack.Evaluate_Point(prev_car_pos);
 		traintrack.Evaluate_Derivative(prev_tangent);
-		crossProduct(prev_tangent, arbitrary, prev_n);
-		crossProduct(prev_tangent, prev_n, prev_b);
 	}
 	else if (Fl::event_key() == 'n') {
 		ride_fl = 0;
