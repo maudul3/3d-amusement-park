@@ -100,6 +100,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CubicBspline.cpp" />
+    <ClCompile Include="EntrySign.cpp" />
     <ClCompile Include="Funhouse.cpp" />
     <ClCompile Include="GenericException.cpp" />
     <ClCompile Include="Ground.cpp" />
@@ -111,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CubicBspline.h" />
+    <ClInclude Include="EntrySign.h" />
     <ClInclude Include="Funhouse.h" />
     <ClInclude Include="GenericException.h" />
     <ClInclude Include="Ground.h" />

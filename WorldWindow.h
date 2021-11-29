@@ -17,6 +17,7 @@
 #include "Track.h"
 #include "trees.h"
 #include "Funhouse.h"
+#include "EntrySign.h"
 
 
 // Subclass the Fl_Gl_Window because we want to draw OpenGL in here.
@@ -41,6 +42,7 @@ class WorldWindow : public Fl_Gl_Window {
 	Track  traintrack;	    // The train and track.
 	Funhouse funhouse;
 	Tree tree;
+	EntrySign entrysign;
 
 	static const double FOV_X; // The horizontal field of view.
 

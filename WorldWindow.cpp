@@ -101,6 +101,7 @@ WorldWindow::draw(void)
 	traintrack.Initialize();
 	funhouse.Initialize();
 	tree.Initialize();
+	entrysign.Initialize();
     }
 
     // Stuff out here relies on a coordinate system or must be done on every
@@ -154,6 +155,7 @@ WorldWindow::draw(void)
     traintrack.Draw();
 	funhouse.Draw();
 	tree.Draw();
+	entrysign.Draw();
 }
 
 
