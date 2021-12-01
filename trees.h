@@ -17,6 +17,9 @@ class Tree {
         // Initializer. Creates the display list.
         bool    Initialize(void);
 
+        // Draw Trees function
+        bool DrawTree(float trunk_radius, float leaves_radius, float x_offset, float y_offset, float height);
+
         // Does the drawing.
         void    Draw(void);
 };

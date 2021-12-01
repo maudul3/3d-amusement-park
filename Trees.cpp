@@ -26,6 +26,43 @@ Tree::~Tree(void)
     }
 }
 
+bool Tree::DrawTree(float trunk_radius, float leaves_radius, float x_offset, float y_offset, float height)
+{
+    float colors[3][3] = {
+        {50./255., 168./255., 82./255.},
+        {168./255., 105./255., 50./255.},
+        {189./255., 77./255., 34./255.}
+    };
+    /* sides */
+    int color_idx = rand() % 3;
+    float deg_offset = 10;
+    glBegin(GL_TRIANGLES);
+    glColor3f(colors[color_idx][0], colors[color_idx][1], colors[color_idx][2]);
+    for (int k = 0; k <= 360; k += 1) {
+        float pos = k * RADCON;
+        float next_pos = (k + deg_offset) * RADCON;
+        glVertex3f(x_offset, y_offset, height);
+        glVertex3f(leaves_radius * cos(pos) + x_offset, leaves_radius * sin(pos) + y_offset, 0.5 * height);
+        glVertex3f(leaves_radius * cos(next_pos) + x_offset, leaves_radius * sin(next_pos) + y_offset, 0.5 * height);
+    }
+    glEnd();
+
+    glBegin(GL_QUADS);
+
+    glColor3f(0.414, 0.305, 0.258);
+    for (float k = 0; k <= 360; k += deg_offset) {
+        float pos = k * RADCON;
+        float next_pos = (k + deg_offset) * RADCON;
+        glVertex3f(trunk_radius * cos(pos) + x_offset, trunk_radius * sin(pos) + y_offset, 0.75 * height);
+        glVertex3f(trunk_radius * cos(pos) + x_offset, trunk_radius * sin(pos) + y_offset, 0);
+        glVertex3f(trunk_radius * cos(next_pos) + x_offset, trunk_radius * sin(next_pos) + y_offset, 0);
+        glVertex3f(trunk_radius * cos(next_pos) + x_offset, trunk_radius * sin(next_pos) + y_offset, 0.75 * height);
+
+    }
+    glEnd();
+
+    return true;
+}
 
 // Initializer. Returns false if something went wrong, like not being able to
 // load the texture.
@@ -81,31 +118,24 @@ bool Tree::Initialize(void)
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture_obj);
 
-    /* sides */
-    float deg_offset = 10;
-    glBegin(GL_TRIANGLES);
-    glColor3f(0.0, 1.0, 0);
-    for (int k = 0; k <= 360; k += 1) {
-        float pos = k * RADCON;
-        float next_pos = (k + deg_offset) * RADCON;
-        glVertex3f(30, -30, 20);
-        glVertex3f(5 * cos(pos) + 30, 5 * sin(pos) - 30, 10);
-        glVertex3f(5 * cos(next_pos) + 30, 5 * sin(next_pos) - 30, 10);
-    }
-    glEnd();
+    float tree_params[7][5] = {
+        {2, 5, 35, -30, 20},
+        {3, 7, 10, -30, 24},
+        {3, 6, 20, -40, 22},
+        {2, 6, -40, 20, 18},
+        {1.5, 5.5, -30, 45, 19},
+        {2, 6, -25, 35, 17},
+        {2, 6, -35, 25, 16}
+    };
 
-    glBegin(GL_QUADS);
-    glColor3f(0.414, 0.305, 0.258);
-    for (float k = 0; k <= 360; k += deg_offset) {
-        float pos = k * RADCON;
-        float next_pos = (k + deg_offset) * RADCON;
-        glVertex3f(2 * cos(pos) + 30, 2 * sin(pos) - 30, 15);
-        glVertex3f(2 * cos(pos) + 30, 2 * sin(pos) - 30, 0);
-        glVertex3f(2 * cos(next_pos) + 30, 2 * sin(next_pos) - 30, 0);
-        glVertex3f(2 * cos(next_pos) + 30, 2 * sin(next_pos) - 30, 15);
-
+    for (int i = 0; i < 7; i++) {
+        DrawTree(tree_params[i][0],
+                 tree_params[i][1],
+                 tree_params[i][2],
+                 tree_params[i][3],
+                 tree_params[i][4]
+                );
     }
-    glEnd();
 
     glEndList();
 
