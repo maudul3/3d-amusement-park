@@ -36,10 +36,10 @@ bool Skytower::Initialize(void)
 
     // Load the image for the texture. The texture file has to be in
     // a place where it will be found.
-    if (!(image_data = (ubyte*)tga_load("BrickTexture.tga", &image_width,
+    if (!(image_data = (ubyte*)tga_load("windows-texture.tga", &image_width,
         &image_height, TGA_TRUECOLOR_24)))
     {
-        fprintf(stderr, "Ground::Initialize: Couldn't load BrickTexture.tga\n");
+        fprintf(stderr, "Ground::Initialize: Couldn't load windows-texture.tga\n");
         return false;
     }
 
@@ -83,9 +83,8 @@ bool Skytower::Initialize(void)
 
     /* sides */
     int deg_offset = 20;
-    glColor3f(0.414, 0.305, 0.258);
     glBegin(GL_QUADS);
-    glColor3f(0, 0.5, 0.8);
+    glColor3f(0.9, 0.9, 0.9);
     for (float k = 0; k <= 360; k += deg_offset) {
         float pos = k * RADCON;
         float next_pos = (k + deg_offset) * RADCON;
@@ -93,6 +92,23 @@ bool Skytower::Initialize(void)
         glVertex3f(2 * cos(pos) - 40, 2 * sin(pos) - 40, 0);
         glVertex3f(2 * cos(next_pos) - 40, 2 * sin(next_pos) - 40, 0);
         glVertex3f(2 * cos(next_pos) - 40, 2 * sin(next_pos) - 40, 25);
+
+    }
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(0, 0.5, 0.8);
+    for (float k = 0; k <= 360; k += deg_offset) {
+        float pos = k * RADCON;
+        float next_pos = (k + deg_offset) * RADCON;
+        glTexCoord2f(0, 0);
+        glVertex3f(6 * cos(pos) - 40, 6 * sin(pos) - 40, 30);
+        glTexCoord2f(0, 0.5);
+        glVertex3f(12 * cos(pos) - 40, 12 * sin(pos) - 40, 25);
+        glTexCoord2f(0.5, 0.5);
+        glVertex3f(12 * cos(next_pos) - 40, 12 * sin(next_pos) - 40, 25);
+        glTexCoord2f(0.5, 0);
+        glVertex3f(6 * cos(next_pos) - 40, 6 * sin(next_pos) - 40, 30);
 
     }
     glEnd();
