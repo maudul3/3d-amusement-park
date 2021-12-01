@@ -1,3 +1,5 @@
+
+
 /*
  * Funhouse.cpp: A class for drawing the funhouse.
  *
@@ -5,14 +7,17 @@
  */
 
 
-#include "Funhouse.h"
+#include "Skytower.h"
 #include "libtarga.h"
 #include <stdio.h>
 #include <math.h>
 #include <GL/glu.h>
+#define RADCON 3.14159265/180.0
+
 
  // Destructor
-Funhouse::~Funhouse(void)
+
+Skytower::~Skytower(void)
 {
     if (initialized)
     {
@@ -24,8 +29,7 @@ Funhouse::~Funhouse(void)
 
 // Initializer. Returns false if something went wrong, like not being able to
 // load the texture.
-bool
-Funhouse::Initialize(void)
+bool Skytower::Initialize(void)
 {
     ubyte* image_data;
     int	    image_height, image_width;
@@ -77,105 +81,20 @@ Funhouse::Initialize(void)
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture_obj);
 
-    // Draw the ground as a quadrilateral, specifying texture coordinates.
+    /* sides */
+    int deg_offset = 20;
+    glColor3f(0.414, 0.305, 0.258);
     glBegin(GL_QUADS);
-    // Floor of the funhouse
-    /*glTexCoord2f(5, 5);
-    glVertex3f(30, 30, 0.0);
-    glTexCoord2f(-5, 5);
-    glVertex3f(10, 30, 0.0);
-    glTexCoord2f(-5, -5);
-    glVertex3f(10.0, 20.0, 0.0);
-    glTexCoord2f(5, -5);
-    glVertex3f(30.0, 20.0, 0.0);*/
-    
-    // Back of the funhouse
-    glTexCoord2f(0, 0);
-    glVertex3f(10, 30, 0.0);
-    glTexCoord2f(0, 5);
-    glVertex3f(10, 30, 10.0);
-    glTexCoord2f(5, 5);
-    glVertex3f(30, 30, 10.0);
-    glTexCoord2f(5, 0);
-    glVertex3f(30, 30, 0.0);
- 
-    // Side of the funhouse?
-    glTexCoord2f(0, 0);
-    glVertex3f(30, 30, 0.0);
-    glTexCoord2f(0, 5);
-    glVertex3f(30, 30, 10.0);
-    glTexCoord2f(5, 5);
-    glVertex3f(30, 20, 10.0);
-    glTexCoord2f(5, 0);
-    glVertex3f(30, 20, 0.0);
+    glColor3f(0, 0.5, 0.8);
+    for (float k = 0; k <= 360; k += deg_offset) {
+        float pos = k * RADCON;
+        float next_pos = (k + deg_offset) * RADCON;
+        glVertex3f(2 * cos(pos) - 40, 2 * sin(pos) - 40, 25);
+        glVertex3f(2 * cos(pos) - 40, 2 * sin(pos) - 40, 0);
+        glVertex3f(2 * cos(next_pos) - 40, 2 * sin(next_pos) - 40, 0);
+        glVertex3f(2 * cos(next_pos) - 40, 2 * sin(next_pos) - 40, 25);
 
-    // Side of the funhouse?
-    glTexCoord2f(0, 0);
-    glVertex3f(10, 20, 0.0);
-    glTexCoord2f(0, 5);
-    glVertex3f(10, 20, 10.0);
-    glTexCoord2f(5, 5);
-    glVertex3f(10, 30, 10.0);
-    glTexCoord2f(5, 0);
-    glVertex3f(10, 30, 0.0);
-
-    // Another side of the funhouse?
-    glTexCoord2f(0, 0);
-    glVertex3f(30, 20, 0.0);
-    glTexCoord2f(0, 5);
-    glVertex3f(30, 20, 10.0);
-    glTexCoord2f(5, 5);
-    glVertex3f(10, 20, 10.0);
-    glTexCoord2f(5, 0);
-    glVertex3f(10, 20, 0.0);
-    
-    glEnd();
-
-    glBegin(GL_TRIANGLES);
-
-    glTexCoord2f(2.5,5);
-    glVertex3f(20.0, 25.0, 18.0);
-    glTexCoord2f(5, 0);
-    glVertex3f(30, 30, 10.0);
-    glTexCoord2f(0, 0);
-    glVertex3f(10, 30, 10.0);
-
-    glTexCoord2f(2.5, 5);
-    glVertex3f(10, 30, 10.0);
-    glTexCoord2f(5, 0);
-    glVertex3f(10, 20, 10.0);
-    glTexCoord2f(0, 0);
-    glVertex3f(20.0, 25.0, 18.0);
-
-    glTexCoord2f(0, 0);
-    glVertex3f(30, 20, 10.0);
-    glTexCoord2f(5, 0);
-    glVertex3f(30, 30, 10.0);
-    glTexCoord2f(2.5, 5);
-    glVertex3f(20.0, 25.0, 18.0);
-
-    glTexCoord2f(0, 0);
-    glVertex3f(10, 20, 10.0);
-    glTexCoord2f(5, 0);
-    glVertex3f(30, 20, 10.0);
-    glTexCoord2f(2.5, 5);
-    glVertex3f(20.0, 25.0, 18.0);
-
-
-    glEnd();
-
-    // Turn texturing off again, because we don't want everything else to
-    // be textured.
-    glDisable(GL_TEXTURE_2D);
-
-    glColor3f(0.0, 0.0, 0.0);
-    glBegin(GL_POLYGON);
-    // Another side of the funhouse?
-    glVertex3f(22.5, 19.999, 0.0);
-    glVertex3f(22.5, 19.999, 5.0);
-    glVertex3f(20, 19.999, 8.0);
-    glVertex3f(17.5, 19.999, 5.0);
-    glVertex3f(17.5, 19.999, 0.0);
+    }
     glEnd();
 
     glEndList();
@@ -189,7 +108,7 @@ Funhouse::Initialize(void)
 
 // Draw just calls the display list we set up earlier.
 void
-Funhouse::Draw(void)
+Skytower::Draw(void)
 {
     glPushMatrix();
     glCallList(display_list);

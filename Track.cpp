@@ -84,13 +84,25 @@ Track::Initialize(void)
     // We just use curve evaluated at integer paramer values, because the
     // subdivision has made sure that these are good enough.
     track_list = glGenLists(1);
+    float prev_p[3];
     glNewList(track_list, GL_COMPILE);
 	glColor3f(1.0f, 1.0, 1.0f);
-	glBegin(GL_LINE_STRIP);
+	glBegin(GL_QUADS);
 	    for ( i = 0 ; i <= n_refined ; i++ )
 	    {
 		refined.Evaluate_Point((float)i, p);
+        if (i > 1) {
+            glVertex3fv(prev_p);
+            prev_p[0] += 2;
+            glVertex3fv(prev_p);
+        }
+        p[0] += 1;
 		glVertex3fv(p);
+        p[0] -= 2;
+        glVertex3fv(p);
+        for (int idx = 0; idx <= 2; idx++) {
+            prev_p[idx] = p[idx];
+        }
 	    }
 	glEnd();
     glEndList();

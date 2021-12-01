@@ -102,6 +102,7 @@ WorldWindow::draw(void)
 	funhouse.Initialize();
 	tree.Initialize();
 	entrysign.Initialize();
+	skytower.Initialize();
     }
 
     // Stuff out here relies on a coordinate system or must be done on every
@@ -156,6 +157,7 @@ WorldWindow::draw(void)
 	funhouse.Draw();
 	tree.Draw();
 	entrysign.Draw();
+	skytower.Draw();
 }
 
 

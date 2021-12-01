@@ -18,6 +18,7 @@
 #include "trees.h"
 #include "Funhouse.h"
 #include "EntrySign.h"
+#include "Skytower.h"
 
 
 // Subclass the Fl_Gl_Window because we want to draw OpenGL in here.
@@ -43,6 +44,7 @@ class WorldWindow : public Fl_Gl_Window {
 	Funhouse funhouse;
 	Tree tree;
 	EntrySign entrysign;
+	Skytower skytower;
 
 	static const double FOV_X; // The horizontal field of view.
 

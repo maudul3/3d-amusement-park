@@ -13,6 +13,8 @@
 #include <math.h>
 #include <GL/glu.h>
 
+#define RADCON 3.14159265/180.0
+
  // Destructor
 
 Tree::~Tree(void)
@@ -80,26 +82,28 @@ bool Tree::Initialize(void)
     glBindTexture(GL_TEXTURE_2D, texture_obj);
 
     /* sides */
+    float deg_offset = 10;
     glBegin(GL_TRIANGLES);
+    glColor3f(0.0, 1.0, 0);
     for (int k = 0; k <= 360; k += 1) {
-        glColor3f(0.0, 1.0, 0);
+        float pos = k * RADCON;
+        float next_pos = (k + deg_offset) * RADCON;
         glVertex3f(30, -30, 20);
-        glColor3f(0.0, 1.0, 0.0);
-        glVertex3f(5 * cos(k) + 30, 5 * sin(k) - 30, 10);
-        glColor3f(0, 1.0, 0.0);
-        glVertex3f(5 * cos(k + 1) + 30, 5 * sin(k + 1) - 30, 10);
+        glVertex3f(5 * cos(pos) + 30, 5 * sin(pos) - 30, 10);
+        glVertex3f(5 * cos(next_pos) + 30, 5 * sin(next_pos) - 30, 10);
     }
     glEnd();
 
     glBegin(GL_QUADS);
-    for (int k = 0; k <= 360; k += 1) {
-        glVertex3f(2 * cos(k) + 30, 2 * sin(k) - 30, 10);
-        glColor3f(0.414, 0.305, 0.258);
-        glVertex3f(2 * cos(k + 1) + 30, 2 * sin(k + 1) - 30, 10);
-        glColor3f(0.414, 0.305, 0.258);
-        glVertex3f(2 * cos(k) + 30, 2 * sin(k) - 30, 0);
-        glColor3f(0.414, 0.305, 0.258);
-        glVertex3f(2 * cos(k + 1) + 30, 2 * sin(k + 1) - 30, 0);
+    glColor3f(0.414, 0.305, 0.258);
+    for (float k = 0; k <= 360; k += deg_offset) {
+        float pos = k * RADCON;
+        float next_pos = (k + deg_offset) * RADCON;
+        glVertex3f(2 * cos(pos) + 30, 2 * sin(pos) - 30, 15);
+        glVertex3f(2 * cos(pos) + 30, 2 * sin(pos) - 30, 0);
+        glVertex3f(2 * cos(next_pos) + 30, 2 * sin(next_pos) - 30, 0);
+        glVertex3f(2 * cos(next_pos) + 30, 2 * sin(next_pos) - 30, 15);
+
     }
     glEnd();
 
