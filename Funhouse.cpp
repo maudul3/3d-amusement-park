@@ -86,73 +86,73 @@ Funhouse::Initialize(void)
     // Back of the funhouse
     glTexCoord2f(0, 0);
     glVertex3f(x_offset, y_offset + y_length, 0.0);
-    glTexCoord2f(0, 5);
+    glTexCoord2f(0, 10);
     glVertex3f(x_offset, y_offset + y_length, z_offset);
-    glTexCoord2f(5, 5);
+    glTexCoord2f(10, 10);
     glVertex3f(x_offset + x_length, y_offset + y_length, z_offset);
-    glTexCoord2f(5, 0);
+    glTexCoord2f(10, 0);
     glVertex3f(x_offset + x_length, y_offset + y_length, 0.0);
  
     // Side of the funhouse?
     glTexCoord2f(0, 0);
     glVertex3f(x_offset + x_length, y_offset + y_length, 0.0);
-    glTexCoord2f(0, 5);
+    glTexCoord2f(0, 10);
     glVertex3f(x_offset + x_length, y_offset + y_length, z_offset);
-    glTexCoord2f(5, 5);
+    glTexCoord2f(10, 10);
     glVertex3f(x_offset + x_length, y_offset, z_offset);
-    glTexCoord2f(5, 0);
+    glTexCoord2f(10, 0);
     glVertex3f(x_offset + x_length, y_offset, 0.0);
 
     // Side of the funhouse?
     glTexCoord2f(0, 0);
     glVertex3f(x_offset, y_offset, 0.0);
-    glTexCoord2f(0, 5);
+    glTexCoord2f(0, 10);
     glVertex3f(x_offset, y_offset, z_offset);
-    glTexCoord2f(5, 5);
+    glTexCoord2f(10, 10);
     glVertex3f(x_offset, y_offset + y_length, z_offset);
-    glTexCoord2f(5, 0);
+    glTexCoord2f(10, 0);
     glVertex3f(x_offset, y_offset + y_length, 0.0);
 
     // Another side of the funhouse?
     glTexCoord2f(0, 0);
     glVertex3f(x_offset + x_length, y_offset, 0.0);
-    glTexCoord2f(0, 5);
+    glTexCoord2f(0, 10);
     glVertex3f(x_offset + x_length, y_offset, z_offset);
-    glTexCoord2f(5, 5);
+    glTexCoord2f(10, 10);
     glVertex3f(x_offset, y_offset, z_offset);
-    glTexCoord2f(5, 0);
+    glTexCoord2f(10, 0);
     glVertex3f(x_offset, y_offset, 0.0);
     
     glEnd();
 
     glBegin(GL_TRIANGLES);
 
-    glTexCoord2f(2.5,5);
+    glTexCoord2f(5,10);
     glVertex3f(x_offset + (x_length/2.0), y_offset + (y_length / 2.0), z_offset + roof_height);
-    glTexCoord2f(5, 0);
+    glTexCoord2f(10, 0);
     glVertex3f(x_offset + x_length, y_offset + y_length, z_offset);
     glTexCoord2f(0, 0);
     glVertex3f(x_offset, y_offset + y_length, z_offset);
 
-    glTexCoord2f(2.5, 5);
+    glTexCoord2f(5, 10);
     glVertex3f(x_offset, y_offset + y_length, z_offset);
-    glTexCoord2f(5, 0);
+    glTexCoord2f(10, 0);
     glVertex3f(x_offset, y_offset, z_offset);
     glTexCoord2f(0, 0);
     glVertex3f(x_offset + (x_length / 2.0), y_offset + (y_length / 2.0), z_offset + roof_height);
 
     glTexCoord2f(0, 0);
     glVertex3f(x_offset + x_length, y_offset, z_offset);
-    glTexCoord2f(5, 0);
+    glTexCoord2f(10, 0);
     glVertex3f(x_offset + x_length, y_offset + y_length, z_offset);
-    glTexCoord2f(2.5, 5);
+    glTexCoord2f(5, 10);
     glVertex3f(x_offset + (x_length / 2.0), y_offset + (y_length / 2.0), z_offset + roof_height);
 
     glTexCoord2f(0, 0);
     glVertex3f(x_offset, y_offset, z_offset);
-    glTexCoord2f(5, 0);
+    glTexCoord2f(10, 0);
     glVertex3f(x_offset + x_length, y_offset, z_offset);
-    glTexCoord2f(2.5, 5);
+    glTexCoord2f(5, 10);
     glVertex3f(x_offset + (x_length / 2.0), y_offset + (y_length / 2.0), z_offset + roof_height);
 
 
