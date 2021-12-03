@@ -77,30 +77,33 @@ bool Skytower::Initialize(void)
     // The surface normal is up for the ground.
     glNormal3f(0.0, 0.0, 1.0);
 
-    float x_offset = -35, y_offset = -35, z_offset = 20, window_height = 10;
+    float x_offset = -35, y_offset = -35, z_offset = 20, window_height = 10, antenna_height = 4;
+    float pole_radius = 3, bottom_radius = 12, top_radius = 6, antenna_radius = 1;
 
     /* sides */
-    int deg_offset = 20;
+    int deg_offset = 40;
     glBegin(GL_QUADS);
     glColor3f(0.5, 0.5, 0.5);
     for (float k = 0; k <= 360; k += deg_offset) {
         float pos = k * RADCON;
         float next_pos = (k + deg_offset) * RADCON;
-        glVertex3f(2 * cos(pos) + x_offset, 2 * sin(pos) + y_offset, z_offset);
-        glVertex3f(2 * cos(pos) + x_offset, 2 * sin(pos) + y_offset, 0);
-        glVertex3f(2 * cos(next_pos) + x_offset, 2 * sin(next_pos) + y_offset, 0);
-        glVertex3f(2 * cos(next_pos) + x_offset, 2 * sin(next_pos) + y_offset, z_offset);
+        glVertex3f(pole_radius * cos(pos) + x_offset, pole_radius * sin(pos) + y_offset, z_offset);
+        glVertex3f(pole_radius * cos(pos) + x_offset, pole_radius * sin(pos) + y_offset, 0);
+        glVertex3f(pole_radius * cos(next_pos) + x_offset, pole_radius * sin(next_pos) + y_offset, 0);
+        glVertex3f(pole_radius * cos(next_pos) + x_offset, pole_radius * sin(next_pos) + y_offset, z_offset);
 
     }
     glEnd();
+
+    deg_offset = 20;
 
     glBegin(GL_TRIANGLES);
     for (float k = 0; k <= 360; k += deg_offset) {
         float pos = k * RADCON;
         float next_pos = (k + deg_offset) * RADCON;
         glVertex3f(x_offset, y_offset, z_offset + window_height);
-        glVertex3f(6 * cos(pos) + x_offset, 6 * sin(pos) + y_offset, z_offset + window_height);
-        glVertex3f(6 * cos(next_pos) + x_offset, 6 * sin(next_pos) + y_offset, z_offset + window_height);
+        glVertex3f(top_radius * cos(pos) + x_offset, top_radius * sin(pos) + y_offset, z_offset + window_height);
+        glVertex3f(top_radius * cos(next_pos) + x_offset, top_radius * sin(next_pos) + y_offset, z_offset + window_height);
 
     }
     glEnd();
@@ -110,9 +113,20 @@ bool Skytower::Initialize(void)
         float pos = k * RADCON;
         float next_pos = (k + deg_offset) * RADCON;
         glVertex3f(x_offset, y_offset, z_offset);
-        glVertex3f(6 * cos(pos) + x_offset, 6 * sin(pos) + y_offset, z_offset);
-        glVertex3f(6 * cos(next_pos) + x_offset, 6 * sin(next_pos) + y_offset, z_offset);
+        glVertex3f(bottom_radius * cos(next_pos) + x_offset, bottom_radius * sin(next_pos) + y_offset, z_offset);
+        glVertex3f(bottom_radius * cos(pos) + x_offset, bottom_radius * sin(pos) + y_offset, z_offset);
 
+
+    }
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+    for (float k = 0; k <= 360; k += deg_offset) {
+        float pos = k * RADCON;
+        float next_pos = (k + deg_offset) * RADCON;
+        glVertex3f( x_offset, y_offset, z_offset + window_height + antenna_height);
+        glVertex3f(antenna_radius * cos(pos) + x_offset, antenna_radius * sin(pos) + y_offset, z_offset + window_height);
+        glVertex3f(antenna_radius * cos(next_pos) + x_offset, antenna_radius * sin(next_pos) + y_offset, z_offset + window_height);
     }
     glEnd();
 
@@ -121,19 +135,19 @@ bool Skytower::Initialize(void)
     glBindTexture(GL_TEXTURE_2D, texture_obj);
 
     glColor3f(1, 1, 1);
-
+    deg_offset = 9;
     glBegin(GL_QUADS);
     for (float k = 0; k <= 360; k += deg_offset) {
         float pos = k * RADCON;
         float next_pos = (k + deg_offset) * RADCON;
-        glTexCoord2f(0, 1);
-        glVertex3f(6 * cos(pos) + x_offset, 6 * sin(pos) + y_offset, z_offset + window_height);
-        glTexCoord2f(0, 0);
-        glVertex3f(12 * cos(pos) + x_offset, 12 * sin(pos) + y_offset, z_offset);
         glTexCoord2f(1, 0);
-        glVertex3f(12 * cos(next_pos) + x_offset, 12 * sin(next_pos) + y_offset, z_offset);
+        glVertex3f(top_radius * cos(pos) + x_offset, top_radius * sin(pos) + y_offset, z_offset + window_height);
         glTexCoord2f(1, 1);
-        glVertex3f(6 * cos(next_pos) + x_offset, 6 * sin(next_pos) + y_offset, z_offset + window_height);
+        glVertex3f(bottom_radius * cos(pos) + x_offset, bottom_radius * sin(pos) + y_offset, z_offset);
+        glTexCoord2f(0, 1);
+        glVertex3f(bottom_radius * cos(next_pos) + x_offset, bottom_radius * sin(next_pos) + y_offset, z_offset);
+        glTexCoord2f(0, 0);
+        glVertex3f(top_radius * cos(next_pos) + x_offset, top_radius * sin(next_pos) + y_offset, z_offset + window_height);
 
     }
     glEnd();
