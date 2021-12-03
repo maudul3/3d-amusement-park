@@ -77,8 +77,8 @@ Funhouse::Initialize(void)
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture_obj);
 
-    float x_offset = 0, y_offset = 38, z_offset = 10.0;
-    float roof_height = 8, x_length = 50, y_length = 10;
+    float x_offset = 0, y_offset = 23, z_offset = 14.0;
+    float roof_height = 8, x_length = 50, y_length = 25;
     // Draw the ground as a quadrilateral, specifying texture coordinates.
     glBegin(GL_QUADS);
     // Floor of the funhouse

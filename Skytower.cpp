@@ -39,7 +39,7 @@ bool Skytower::Initialize(void)
     if (!(image_data = (ubyte*)tga_load("windows-texture.tga", &image_width,
         &image_height, TGA_TRUECOLOR_24)))
     {
-        fprintf(stderr, "Ground::Initialize: Couldn't load windows-texture.tga\n");
+        fprintf(stderr, "Skytower::Initialize: Couldn't load windows-texture.tga\n");
         return false;
     }
 
@@ -77,41 +77,68 @@ bool Skytower::Initialize(void)
     // The surface normal is up for the ground.
     glNormal3f(0.0, 0.0, 1.0);
 
-    // Turn on texturing and bind the texture.
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texture_obj);
+    float x_offset = -35, y_offset = -35, z_offset = 20, window_height = 10;
 
     /* sides */
     int deg_offset = 20;
     glBegin(GL_QUADS);
-    glColor3f(0.9, 0.9, 0.9);
+    glColor3f(0.5, 0.5, 0.5);
     for (float k = 0; k <= 360; k += deg_offset) {
         float pos = k * RADCON;
         float next_pos = (k + deg_offset) * RADCON;
-        glVertex3f(2 * cos(pos) - 40, 2 * sin(pos) - 40, 25);
-        glVertex3f(2 * cos(pos) - 40, 2 * sin(pos) - 40, 0);
-        glVertex3f(2 * cos(next_pos) - 40, 2 * sin(next_pos) - 40, 0);
-        glVertex3f(2 * cos(next_pos) - 40, 2 * sin(next_pos) - 40, 25);
+        glVertex3f(2 * cos(pos) + x_offset, 2 * sin(pos) + y_offset, z_offset);
+        glVertex3f(2 * cos(pos) + x_offset, 2 * sin(pos) + y_offset, 0);
+        glVertex3f(2 * cos(next_pos) + x_offset, 2 * sin(next_pos) + y_offset, 0);
+        glVertex3f(2 * cos(next_pos) + x_offset, 2 * sin(next_pos) + y_offset, z_offset);
 
     }
     glEnd();
+
+    glBegin(GL_TRIANGLES);
+    for (float k = 0; k <= 360; k += deg_offset) {
+        float pos = k * RADCON;
+        float next_pos = (k + deg_offset) * RADCON;
+        glVertex3f(x_offset, y_offset, z_offset + window_height);
+        glVertex3f(6 * cos(pos) + x_offset, 6 * sin(pos) + y_offset, z_offset + window_height);
+        glVertex3f(6 * cos(next_pos) + x_offset, 6 * sin(next_pos) + y_offset, z_offset + window_height);
+
+    }
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+    for (float k = 0; k <= 360; k += deg_offset) {
+        float pos = k * RADCON;
+        float next_pos = (k + deg_offset) * RADCON;
+        glVertex3f(x_offset, y_offset, z_offset);
+        glVertex3f(6 * cos(pos) + x_offset, 6 * sin(pos) + y_offset, z_offset);
+        glVertex3f(6 * cos(next_pos) + x_offset, 6 * sin(next_pos) + y_offset, z_offset);
+
+    }
+    glEnd();
+
+    // Turn on texturing and bind the texture.
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture_obj);
+
+    glColor3f(1, 1, 1);
 
     glBegin(GL_QUADS);
-    glColor3f(0, 0.5, 0.8);
     for (float k = 0; k <= 360; k += deg_offset) {
         float pos = k * RADCON;
         float next_pos = (k + deg_offset) * RADCON;
+        glTexCoord2f(0, 1);
+        glVertex3f(6 * cos(pos) + x_offset, 6 * sin(pos) + y_offset, z_offset + window_height);
         glTexCoord2f(0, 0);
-        glVertex3f(6 * cos(pos) - 40, 6 * sin(pos) - 40, 30);
-        glTexCoord2f(0, 0.5);
-        glVertex3f(12 * cos(pos) - 40, 12 * sin(pos) - 40, 25);
-        glTexCoord2f(0.5, 0.5);
-        glVertex3f(12 * cos(next_pos) - 40, 12 * sin(next_pos) - 40, 25);
-        glTexCoord2f(0.5, 0);
-        glVertex3f(6 * cos(next_pos) - 40, 6 * sin(next_pos) - 40, 30);
+        glVertex3f(12 * cos(pos) + x_offset, 12 * sin(pos) + y_offset, z_offset);
+        glTexCoord2f(1, 0);
+        glVertex3f(12 * cos(next_pos) + x_offset, 12 * sin(next_pos) + y_offset, z_offset);
+        glTexCoord2f(1, 1);
+        glVertex3f(6 * cos(next_pos) + x_offset, 6 * sin(next_pos) + y_offset, z_offset + window_height);
 
     }
     glEnd();
+    
+    glDisable(GL_TEXTURE_2D);
 
     glEndList();
 

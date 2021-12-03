@@ -46,6 +46,16 @@ bool Tree::DrawTree(float trunk_radius, float leaves_radius, float x_offset, flo
     }
     glEnd();
 
+    glBegin(GL_TRIANGLES);
+    for (float k = 0; k <= 360; k += deg_offset) {
+        float pos = k * RADCON;
+        float next_pos = (k + deg_offset) * RADCON;
+        glVertex3f(x_offset, y_offset, 0.5 * height);
+        glVertex3f(leaves_radius * cos(next_pos) + x_offset, leaves_radius * sin(next_pos) + y_offset, 0.5 * height);
+        glVertex3f(leaves_radius * cos(pos) + x_offset, leaves_radius * sin(pos) + y_offset, 0.5 * height);
+    }
+    glEnd();
+
     glBegin(GL_QUADS);
 
     glColor3f(0.414, 0.305, 0.258);
@@ -76,17 +86,20 @@ bool Tree::Initialize(void)
     // The surface normal is up for the ground.
     glNormal3f(0.0, 0.0, 1.0);
 
-    float tree_params[7][5] = {
+    float tree_params[8][5] = {
         {2, 5, 35, -30, 20},
-        {3, 7, 10, -30, 24},
-        {3, 6, 20, -40, 22},
-        {2, 6, -40, 20, 18},
-        {1.5, 5.5, -30, 45, 19},
+        {3, 7, 20, -35, 24},
+                {3, 7, 20, -35, 24},
+
+        {2.5, 5.5, 10, -30, 18},
+        {3, 6, 30, -40, 22},
+        {2, 6, -40, 15, 18},
         {2, 6, -25, 35, 17},
-        {2, 6, -35, 25, 16}
+        {2, 6, -35, 25, 16},
+        {1.5, 5.5, -20, 45, 19}
     };
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 8; i++) {
         DrawTree(tree_params[i][0],
                  tree_params[i][1],
                  tree_params[i][2],
