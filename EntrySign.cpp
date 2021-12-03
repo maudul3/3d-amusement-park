@@ -187,19 +187,6 @@ EntrySign::Initialize(void)
     // Turn texturing off again, because we don't want everything else to
     // be textured.
     glDisable(GL_TEXTURE_2D);
-
-    glColor3f(0.0, 0.0, 0.0);
-    glBegin(GL_POLYGON);
-    // Another side of the funhouse?
-    glVertex3f(22.5, 19.999, 0.0);
-    glVertex3f(22.5, 19.999, 5.0);
-    glVertex3f(20, 19.999, 8.0);
-    glVertex3f(17.5, 19.999, 5.0);
-    glVertex3f(17.5, 19.999, 0.0);
-    glEnd();
-
-    glEndList();
-
     // We only do all this stuff once, when the GL context is first set up.
     initialized = true;
 
