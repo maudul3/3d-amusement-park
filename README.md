@@ -11,4 +11,4 @@ This project served as my introduction to 3D modeling of objects and the many fe
 
 ## To Use
 
-To run the project, it must be open with Microsoft Office Visual Studio in a Windows environment. 
+To run the project, it must be opened with Microsoft Office Visual Studio in a Windows environment. 
